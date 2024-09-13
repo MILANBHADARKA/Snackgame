@@ -17,6 +17,9 @@ public class SnackGame extends Canvas implements ActionListener, KeyListener {
         }
     }
 
+    Dialog d;
+    boolean easy = false;
+    boolean hard = false;
 
     int boardwidth;
     int boardheight;
@@ -58,7 +61,7 @@ public class SnackGame extends Canvas implements ActionListener, KeyListener {
         // setBackground(new Color(27, 18, 18));
         setBackground(BGcolor);
         addKeyListener(this);
-        setFocusable(true);   //Ensures the canvas receives keyboard events.
+        setFocusable(true);         //Ensures the canvas receives keyboard events.
 
         snackHead = new Tile(5, 5);
         snackBody = new ArrayList<Tile>();
@@ -71,8 +74,45 @@ public class SnackGame extends Canvas implements ActionListener, KeyListener {
         velocityY = 0;
 
         gameLoop = new Timer(speed, this);
+
+        createDifficultyDialog();
+
         gameLoop.start();
 
+    }
+
+    private void createDifficultyDialog() {
+        // Dialog for difficulty selection
+        d = new Dialog(new Frame(), "Select Difficulty", true);
+        d.setLayout(new FlowLayout());
+        
+        Button b1 = new Button("Easy");
+        Button b2 = new Button("Hard");
+    
+        // Easy button action listener
+        b1.addActionListener(e -> {
+            easy = true;
+            hard = false;
+            speed = 100;  // Speed for easy mode
+            gameLoop.setDelay(speed);  // Now this works because gameLoop is initialized
+            d.dispose();  // Close the dialog
+        });
+    
+        // Hard button action listener
+        b2.addActionListener(e -> {
+            easy = false;
+            hard = true;
+            speed = 50;  // Speed for hard mode
+            gameLoop.setDelay(speed);
+            d.dispose();  // Close the dialog
+        });
+    
+        // Add buttons and setup dialog
+        d.add(b1);
+        d.add(b2);
+        d.setSize(200, 100);
+        d.setLocationRelativeTo(null);  // Center the dialog on the screen
+        d.setVisible(true);  // Show the dialog after adding buttons
     }
 
     @Override
@@ -223,8 +263,10 @@ public class SnackGame extends Canvas implements ActionListener, KeyListener {
                 velocityX = 0;
                 velocityY = 0;
                 speed = 100;
+
                 gameLoop.setDelay(speed);
                 placefood();
+
                 gameLoop.start();
             }
         }
