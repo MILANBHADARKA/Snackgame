@@ -48,9 +48,9 @@ public class SnackGame extends Canvas implements ActionListener, KeyListener {
 
     Timer gameLoop;
 
-    SnackGame(int boardwidth, int boardheight) {
-        this.boardwidth = boardwidth;
-        this.boardheight = boardheight;
+    SnackGame() {
+        boardwidth = 600;
+        boardheight = 600;
 
         BGcolor = Color.BLACK;
         snackcolor = Color.GREEN;
@@ -89,30 +89,36 @@ public class SnackGame extends Canvas implements ActionListener, KeyListener {
         Button b1 = new Button("Easy");
         Button b2 = new Button("Hard");
     
-        // Easy button action listener
+        
         b1.addActionListener(e -> {
             easy = true;
             hard = false;
-            speed = 100;  // Speed for easy mode
-            gameLoop.setDelay(speed);  // Now this works because gameLoop is initialized
-            d.dispose();  // Close the dialog
+            speed = 100;  
+            gameLoop.setDelay(speed); 
+            d.dispose(); 
         });
     
         // Hard button action listener
         b2.addActionListener(e -> {
             easy = false;
             hard = true;
-            speed = 50;  // Speed for hard mode
+            speed = 50;  
             gameLoop.setDelay(speed);
-            d.dispose();  // Close the dialog
+            d.dispose();  
+        });
+
+        d.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent we) {
+                System.exit(0);
+            }
         });
     
-        // Add buttons and setup dialog
+
         d.add(b1);
         d.add(b2);
         d.setSize(200, 100);
-        d.setLocationRelativeTo(null);  // Center the dialog on the screen
-        d.setVisible(true);  // Show the dialog after adding buttons
+        // d.setLocationRelativeTo(null);  
+        d.setVisible(true);  
     }
 
     @Override
@@ -120,13 +126,16 @@ public class SnackGame extends Canvas implements ActionListener, KeyListener {
         draw(g);
     }
 
+    /**
+     * @param g
+     */
     public void draw(Graphics g) {
 
         setBackground(BGcolor);
 
         //food
         g.setColor(Color.RED);
-        g.fill3DRect(food.x * tilesize, food.y * tilesize, tilesize, tilesize, true);  //
+        g.fill3DRect(food.x * tilesize, food.y * tilesize, tilesize, tilesize, true);
 
         // draw the snack head
         g.setColor(snackcolor);
@@ -284,7 +293,7 @@ public class SnackGame extends Canvas implements ActionListener, KeyListener {
 
     public static void main(String[] args) {
         Frame frame = new Frame("Snack Game");
-        SnackGame game = new SnackGame(600, 600);
+        SnackGame game = new SnackGame();
 
         frame.add(game);
         frame.pack();
