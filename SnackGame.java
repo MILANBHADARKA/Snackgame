@@ -93,8 +93,8 @@ public class SnackGame extends Canvas implements ActionListener, KeyListener {
         b1.addActionListener(e -> {
             easy = true;
             hard = false;
-            speed = 100;  
-            gameLoop.setDelay(speed); 
+            // speed = 100;  
+            // gameLoop.setDelay(speed); 
             d.dispose(); 
         });
     
@@ -102,8 +102,8 @@ public class SnackGame extends Canvas implements ActionListener, KeyListener {
         b2.addActionListener(e -> {
             easy = false;
             hard = true;
-            speed = 50;  
-            gameLoop.setDelay(speed);
+            // speed = 50;  
+            // gameLoop.setDelay(speed);
             d.dispose();  
         });
 
@@ -126,10 +126,34 @@ public class SnackGame extends Canvas implements ActionListener, KeyListener {
         draw(g);
     }
 
-    /**
-     * @param g
-     */
+
     public void draw(Graphics g) {
+
+
+        if(easy){
+            g.setColor(Color.YELLOW);
+            // // g.setFont(new Font("Arial", Font.PLAIN, 20));
+            // g.drawString("Easy Mode", 250, 50);
+        }else if(hard){
+            g.setColor(Color.RED);
+            // // g.setFont(new Font("Arial", Font.PLAIN, 20));
+            // g.drawString("Hard Mode", 250, 50);
+
+            //random obstacles
+            g.setColor(Color.BLUE);
+            g.fill3DRect(25, 200, 25, 25, true);
+            g.fill3DRect(50, 200, 25, 25, true);
+            g.fill3DRect(75, 200, 25, 25, true);
+
+            g.fill3DRect(500, 100, 25, 25, true);
+            g.fill3DRect(500, 125, 25, 25, true);
+            g.fill3DRect(500, 150, 25, 25, true);
+
+            g.fill3DRect(300, 500, 25, 25, true);
+            g.fill3DRect(325, 500, 25, 25, true);
+            g.fill3DRect(350, 500, 25, 25, true);
+
+        }
 
         setBackground(BGcolor);
 
@@ -162,8 +186,45 @@ public class SnackGame extends Canvas implements ActionListener, KeyListener {
     }
 
     public void placefood() {
-        food.x = random.nextInt(boardwidth / tilesize);     
-        food.y = random.nextInt(boardheight / tilesize);
+        // food.x = random.nextInt(boardwidth / tilesize);     
+        // food.y = random.nextInt(boardheight / tilesize);
+
+        if(easy){
+            food.x = random.nextInt(boardwidth / tilesize);     
+            food.y = random.nextInt(boardheight / tilesize);
+        }else if(hard){
+            food.x = random.nextInt(boardwidth / tilesize);     
+            food.y = random.nextInt(boardheight / tilesize);
+
+            if(food.x == 25 && food.y == 200){
+                food.x = random.nextInt(boardwidth / tilesize);     
+                food.y = random.nextInt(boardheight / tilesize);
+            }else if(food.x == 50 && food.y == 200){
+                food.x = random.nextInt(boardwidth / tilesize);     
+                food.y = random.nextInt(boardheight / tilesize);
+            }else if(food.x == 75 && food.y == 200){
+                food.x = random.nextInt(boardwidth / tilesize);     
+                food.y = random.nextInt(boardheight / tilesize);
+            }else if(food.x == 500 && food.y == 100){
+                food.x = random.nextInt(boardwidth / tilesize);     
+                food.y = random.nextInt(boardheight / tilesize);
+            }else if(food.x == 500 && food.y == 125){
+                food.x = random.nextInt(boardwidth / tilesize);     
+                food.y = random.nextInt(boardheight / tilesize);
+            }else if(food.x == 500 && food.y == 150){
+                food.x = random.nextInt(boardwidth / tilesize);     
+                food.y = random.nextInt(boardheight / tilesize);
+            }else if(food.x == 300 && food.y == 500){
+                food.x = random.nextInt(boardwidth / tilesize);     
+                food.y = random.nextInt(boardheight / tilesize);
+            }else if(food.x == 325 && food.y == 500){
+                food.x = random.nextInt(boardwidth / tilesize);     
+                food.y = random.nextInt(boardheight / tilesize);
+            }else if(food.x == 350 && food.y == 500){
+                food.x = random.nextInt(boardwidth / tilesize);     
+                food.y = random.nextInt(boardheight / tilesize);
+            }
+        }
     }
 
     public boolean collision(Tile tile1, Tile tile2) {
@@ -200,6 +261,28 @@ public class SnackGame extends Canvas implements ActionListener, KeyListener {
 
         if (snackHead.x * tilesize < 0 || snackHead.x * tilesize >= boardwidth || snackHead.y * tilesize < 0 || snackHead.y * tilesize >= boardheight) {
             gameOver = true;
+        }
+
+        if(hard){
+            if(snackHead.x * tilesize == 25 && snackHead.y * tilesize == 200){
+                gameOver = true;
+            }else if(snackHead.x * tilesize == 50 && snackHead.y * tilesize == 200){
+                gameOver = true;
+            }else if(snackHead.x * tilesize == 75 && snackHead.y * tilesize == 200){
+                gameOver = true;
+            }else if(snackHead.x * tilesize == 500 && snackHead.y * tilesize == 100){
+                gameOver = true;
+            }else if(snackHead.x * tilesize == 500 && snackHead.y * tilesize == 125){
+                gameOver = true;
+            }else if(snackHead.x * tilesize == 500 && snackHead.y * tilesize == 150){
+                gameOver = true;
+            }else if(snackHead.x * tilesize == 300 && snackHead.y * tilesize == 500){
+                gameOver = true;
+            }else if(snackHead.x * tilesize == 325 && snackHead.y * tilesize == 500){
+                gameOver = true;
+            }else if(snackHead.x * tilesize == 350 && snackHead.y * tilesize == 500){
+                gameOver = true;
+            }
         }
 
         // Eat food
