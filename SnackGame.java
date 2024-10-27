@@ -61,7 +61,7 @@ public class SnackGame extends Canvas implements ActionListener, KeyListener {
         // setBackground(new Color(27, 18, 18));
         setBackground(BGcolor);
         addKeyListener(this);
-        setFocusable(true);         //Ensures the canvas receives keyboard events.
+        setFocusable(true);         
 
         snackHead = new Tile(5, 5);
         snackBody = new ArrayList<Tile>();
@@ -82,7 +82,7 @@ public class SnackGame extends Canvas implements ActionListener, KeyListener {
     }
 
     private void createDifficultyDialog() {
-        // Dialog for difficulty selection
+        //difficulty selection
         d = new Dialog(new Frame(), "Select Difficulty", true);
         d.setLayout(new FlowLayout());
         
@@ -90,7 +90,7 @@ public class SnackGame extends Canvas implements ActionListener, KeyListener {
         Button b2 = new Button("Hard");
     
         
-        b1.addActionListener(e -> {
+        b1.addActionListener( (e) -> {
             easy = true;
             hard = false;
             // speed = 100;  
@@ -99,7 +99,7 @@ public class SnackGame extends Canvas implements ActionListener, KeyListener {
         });
     
         // Hard button action listener
-        b2.addActionListener(e -> {
+        b2.addActionListener( (e) -> {
             easy = false;
             hard = true;
             // speed = 50;  
@@ -121,23 +121,16 @@ public class SnackGame extends Canvas implements ActionListener, KeyListener {
         d.setVisible(true);  
     }
 
-    @Override
     public void paint(Graphics g) {
         draw(g);
     }
 
 
     public void draw(Graphics g) {
-
-
         if(easy){
             g.setColor(Color.YELLOW);
-            // // g.setFont(new Font("Arial", Font.PLAIN, 20));
-            // g.drawString("Easy Mode", 250, 50);
         }else if(hard){
             g.setColor(Color.RED);
-            // // g.setFont(new Font("Arial", Font.PLAIN, 20));
-            // g.drawString("Hard Mode", 250, 50);
 
             //random obstacles
             g.setColor(Color.BLUE);
@@ -379,7 +372,7 @@ public class SnackGame extends Canvas implements ActionListener, KeyListener {
         SnackGame game = new SnackGame();
 
         frame.add(game);
-        frame.pack();
+        frame.pack();    
         frame.setSize(650, 650);
         frame.setResizable(false);
 
